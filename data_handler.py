@@ -10,11 +10,11 @@ def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
 def query_db(lst):
-	capital_lst = [el.upper() for el in lst]
+	capital_lst = [str(el.upper()) for el in lst]
 	db = connect_db()	
 	req_string = 'select word, pronunciation from words where word in (' + str(capital_lst).strip("[]") + ')' 
 	dictionary_cursor = db.execute(req_string)
-	return dictionary_cursor.fetchall()
+	return dict(dictionary_cursor.fetchall())
 
 def build_db():
 	db = connect_db()
