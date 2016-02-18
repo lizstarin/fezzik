@@ -14,8 +14,9 @@ Fezzik searches the Twitter stream to find pairs of rhyming tweets.
 
 - Install dependencies:
 ```
+pip install flask twitter
+```  
 
-```
 - In the home directory of the repo, create a file called `.env` for your keys & tokens (these will be set as environment variables):
 ```
 CONSUMER_KEY=$YOUR_KEY  
