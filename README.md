@@ -33,5 +33,5 @@ Fezzik relies on the [CMU Pronouncing Dictionary.](http://www.speech.cs.cmu.edu/
 sqlite3 /tmp/words.db < schema.sql
 python -c 'import data_handler; data_handler.build_db()'
 ```
-- Run!  
+Run!  
 `python fezzik.py`
