@@ -4,7 +4,7 @@
 "Anybody want a peanut?"]
 (https://www.youtube.com/watch?v=DP5-qJSzDUg)
 
-Fezzik searches the Twitter stream to find pairs of rhyming tweets.
+Fezzik is a [Twitterbot](http://twitter.com/fezzik) who searches the Twitter stream to find pairs of rhyming tweets.
 
 ## To run locally
 
