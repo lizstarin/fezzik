@@ -13,7 +13,7 @@ Fezzik is a [Twitterbot](https://twitter.com/anybdywannapnut) who searches the T
 Clone this repo locally.
 
 Install dependencies:  
-`pip install flask twitter`
+`pip install Flask twitter`
 
 In the home directory of the repo, create a file called `.env` for your keys & tokens (these will be set as environment variables):
 ```
