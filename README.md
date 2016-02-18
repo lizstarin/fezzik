@@ -12,7 +12,7 @@ Fezzik is a [Twitterbot](https://twitter.com/anybdywannapnut) who searches the T
 
 Clone this repo locally.
 
-Install dependencies:  
+Install dependencies. [Flask](http://flask.pocoo.org/) is a lightweight Python web framework. The [Minimalist Twitter API](https://pypi.python.org/pypi/twitter) is a Python wrapper for the Twitter API.  
 `pip install Flask twitter`
 
 In the home directory of the repo, create a file called `.env` for your keys & tokens (these will be set as environment variables):
