@@ -31,5 +31,5 @@ Fezzik relies on the [CMU Pronouncing Dictionary.](http://www.speech.cs.cmu.edu/
 sqlite3 /tmp/words.db < schema.sql
 python -c 'import data_handler; data_handler.build_db()'
 ```
-Run!  
+Run! Fezzik needs a little time to warm up (it builds a buffer of potential tweets), but pretty soon it will output pairs of tweets to the command line.  
 `python fezzik.py`
