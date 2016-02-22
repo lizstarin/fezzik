@@ -6,7 +6,9 @@ ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
 CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
+twitter = Twitter(auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 twitter_stream = TwitterStream(auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
+
 iterator = twitter_stream.statuses.sample()
 
 potential_matches = []
@@ -21,11 +23,15 @@ def find_rhyme(tweet):
 
 	potential_matches.append(t)
 
-def create_rhyme(t, pm):
-	potential_matches.remove(pm)
+def create_rhyme(t, m):
+	potential_matches.remove(m)
+
 	print t['text']
-	print pm['text']
-	
+	print m['text']
+	print '\n'
+
+	twitter.statuses.retweet(_id=t['_id'])
+	twitter.statuses.retweet(_id=m['_id'])
 
 for tweet in iterator:
 	try:

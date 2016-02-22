@@ -26,12 +26,14 @@ def get_last_syllable(phrase):
 	return result
 
 def build_tweet_info(tweet):
+	_id = tweet['id_str']
 	text = strip_tweet(tweet['text'])
 	meter = get_meter(text)
 	last_syllable = get_last_syllable(text)
 	last_word = text.split()[-1].strip('.,!-?/":;[]()').upper()
 
 	return { 
+		'_id': _id,
 		'text': text,
 		'meter' : meter,
 		'last_syllable' : last_syllable,
