@@ -10,8 +10,6 @@ Fezzik is a [Twitterbot](https://twitter.com/anybdywannapnut) who searches the T
 
 [Create a new Twitter app.](https://apps.twitter.com/)
 
-Clone this repo locally.
-
 Install dependencies. [Flask](http://flask.pocoo.org/) is a lightweight Python web framework. The [Minimalist Twitter API](https://pypi.python.org/pypi/twitter) is a Python wrapper for the Twitter API.  
 `pip install Flask twitter`
 
