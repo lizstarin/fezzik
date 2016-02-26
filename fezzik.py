@@ -1,6 +1,6 @@
 from twitter import *
 import threading
-import os, tweet_parser
+import os, tweet_parser, utilities
 
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
@@ -21,6 +21,8 @@ def find_rhyme(tweet):
 			potential_matches.remove(pm)
 			archive_rhyme(t, pm)
 			print 'match found'
+			print '# matches:'
+			print len(matches)
 			return
 
 	potential_matches.append(t)
@@ -60,10 +62,5 @@ def iterate(iterator):
 					find_rhyme(tweet)
 			except:
 				pass
-
-def destroy_tweets(): # utility function
-	tweets = twitter.statuses.user_timeline(screen_name='anybdywannapnut', count=200)
-	for t in tweets:
-		twitter.statuses.destroy(id=t['id'])
 
 iterate(twitter_stream.statuses.sample())
