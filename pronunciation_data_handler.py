@@ -11,6 +11,7 @@ def connect_db():
 
 def query_db(lst):
 	capital_lst = [str(el.upper()) for el in lst]
+	print capital_lst
 	db = connect_db()
 	req_string = 'select word, pronunciation from words where word in (' + str(capital_lst).strip("[]") + ')' 
 	dictionary_cursor = db.execute(req_string)

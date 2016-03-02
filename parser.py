@@ -1,13 +1,9 @@
-import re, data_handler
-
-def strip_tweet(tweet):
-	#Takes string, returns string
-	return ' '.join([word for word in tweet.split() if word[0] != '#' and word[0] != '@' and not re.match('http:\/\/*', word) and not re.match('^RT$', word)])
+import re, pronunciation_data_handler
 
 def get_pronunciation(phrase):
 	# Takes string, returns string
-	lst = [el.strip('.,!-?/":;[]()') for el in phrase.split()]
-	pronunciation_dict = data_handler.query_db(lst)
+	lst = [el.strip('.,!-?/":;[]()') for el in re.split(r'[-\s]*', phrase)]
+	pronunciation_dict = pronunciation_data_handler.query_db(lst)
 	return ' '.join([pronunciation_dict[word.upper()].strip('\n') for word in lst])
 
 def get_meter(phrase):
@@ -25,6 +21,12 @@ def get_last_syllable(phrase):
 
 	return result
 
+# FOR TWEETS
+
+def strip_tweet(tweet):
+	#Takes string, returns string
+	return ' '.join([word for word in tweet.split() if word[0] != '#' and word[0] != '@' and not re.match('http:\/\/*', word) and not re.match('^RT$', word)])
+
 def build_tweet_info(tweet):
 	_id = tweet['id_str']
 	text = strip_tweet(tweet['text'])
@@ -39,3 +41,5 @@ def build_tweet_info(tweet):
 		'last_syllable' : last_syllable,
 		'last_word' : last_word
 	}
+
+# FOR SONG LINES

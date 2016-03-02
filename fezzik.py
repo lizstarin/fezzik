@@ -1,6 +1,6 @@
 from twitter import *
 import threading
-import os, tweet_parser, utilities
+import os, parser, utilities
 
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
@@ -14,7 +14,7 @@ potential_matches = []
 matches = []
 
 def find_rhyme(tweet):
-	t = tweet_parser.build_tweet_info(tweet)
+	t = parser.build_tweet_info(tweet)
 
 	for pm in potential_matches:
 		if t['last_syllable'] == pm['last_syllable'] and len(t['meter']) == len(pm['meter']) and t['last_word'] != pm['last_word']:

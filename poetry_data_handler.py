@@ -14,13 +14,3 @@ def build_db():
 	db = connect_db()
 	db.execute('delete from poems')
 	poetry.get_poems()
-
-
-	raw_data = open('static/cmudict.txt').readlines()
-	for el in raw_data:
-		line = el.split('  ')
-		db.execute('insert into words (word, pronunciation) values (?, ?)', [line[0], line[1]])
-		db.commit()
-		print 'building'
-	print 'done'
-
