@@ -12,7 +12,6 @@ twitter_stream = TwitterStream(auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CON
 
 potential_matches = []
 matches = []
-tmbg_matches = []
 
 def find_rhyming_tweet(tweet):
 	t = parser.build_tweet_info(tweet)
@@ -60,14 +59,6 @@ def tweet_rhymes():
   	if len(matches) > 0:
   		tweet_rhyme(matches[0])
   		matches.remove(matches[0])
-  	else:
-  		print 'nothing to tweet'
-
-def tweet_tmbg_rhymes():
-	threading.Timer(10, tweet_rhymes).start()
-  	if len(tmbg_matches) > 0:
-  		tweet_rhyme(tmbg_matches[0])
-  		tmbg_matches.remove(tmbg_matches[0])
   	else:
   		print 'nothing to tweet'
 
