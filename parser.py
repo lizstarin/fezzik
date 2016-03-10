@@ -42,4 +42,16 @@ def build_tweet_info(tweet):
 		'last_word' : last_word
 	}
 
-# FOR SONG LINES
+# FOR POEM LINES
+
+def build_line_info(line):
+	text = line[1]
+	last_syllable = get_last_syllable(text)
+	last_word = text.split()[-1].strip('.,!-?/":;[]()').upper()
+
+	return { 
+		'text': text,
+		'meter' : line[4],
+		'last_syllable' : last_syllable,
+		'last_word' : last_word
+	}

@@ -1,6 +1,6 @@
 from twitter import *
 import threading
-import os, parser, utilities
+import os, parser, utilities, tmbg_data_handler, poetry_data_handler
 
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
@@ -12,8 +12,9 @@ twitter_stream = TwitterStream(auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CON
 
 potential_matches = []
 matches = []
+tmbg_matches = []
 
-def find_rhyme(tweet):
+def find_rhyming_tweet(tweet):
 	t = parser.build_tweet_info(tweet)
 
 	for pm in potential_matches:
@@ -26,6 +27,19 @@ def find_rhyme(tweet):
 			return
 
 	potential_matches.append(t)
+
+def find_rhyming_line(tweet):
+	t = parser.build_tweet_info(tweet)
+	potential_rhymes = poetry_data_handler.get_lines_by_meter_length(len(t['meter']))
+
+	for pr in potential_rhymes:
+		parsed_line = parser.build_line_info(pr)
+
+		if t['last_syllable'] == parsed_line['last_syllable'] and t['last_word'] != parsed_line['last_word']:
+			print 'match found: \n'
+			print t['text']
+			print parsed_line['text']
+			return
 
 def archive_rhyme(t, m):
 	matches.append([t, m])
@@ -49,9 +63,15 @@ def tweet_rhymes():
   	else:
   		print 'nothing to tweet'
 
-def iterate(iterator):
-	tweet_rhymes()
+def tweet_tmbg_rhymes():
+	threading.Timer(10, tweet_rhymes).start()
+  	if len(tmbg_matches) > 0:
+  		tweet_rhyme(tmbg_matches[0])
+  		tmbg_matches.remove(tmbg_matches[0])
+  	else:
+  		print 'nothing to tweet'
 
+def iterate(iterator, rhyme_finder_function):
 	for tweet in iterator:
 		if 'hangup' in tweet:
 			print 'hanging up and calling again \n'
@@ -59,8 +79,8 @@ def iterate(iterator):
 		else:
 			try:
 				if tweet['lang'] == 'en' and '@' not in tweet['text'] and '#' not in tweet['text']:
-					find_rhyme(tweet)
+					rhyme_finder_function(tweet)
 			except:
 				pass
 
-iterate(twitter_stream.statuses.sample())
+iterate(twitter_stream.statuses.sample(), find_rhyming_line)

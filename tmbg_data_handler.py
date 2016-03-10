@@ -45,13 +45,23 @@ def build_db(datafile_exists):
 		make_db_entry(song, db)
 	print 'done'
 
-def query_db():
+def query_db(req_string):
 	db = connect_db()
-	req_string = 'select * from tmbg where song_title = "Anaheim"'
 	cursor = db.execute(req_string)
-	print cursor.fetchall()
-	# line = cursor.fetchall()[0][0]
-	# print pronunciation_data_handler.query_db(line.split(' '))
+	return cursor.fetchall()
+
+def get_lines_by_meter(meter):
+	return query_db('select * from tmbg where meter = "' + meter + '"')
+
+def get_lines_by_meter_length(num):
+	return query_db('select * from tmbg where length(meter) = ' + str(num))
+
+def get_lines_by_song(song_title):
+	return query_db('select * from tmbg where song_title = "' + song_title + '"')
+
+
+
+
 
 
 
